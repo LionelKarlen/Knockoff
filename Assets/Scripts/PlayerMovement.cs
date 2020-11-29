@@ -77,8 +77,7 @@ public class PlayerMovement : MonoBehaviour {
         getInput();
         Steer();
         Accelerate();
-        UpdateWheels();
-        // handleStandstill();
+        // UpdateWheels();
     }
 
 }
