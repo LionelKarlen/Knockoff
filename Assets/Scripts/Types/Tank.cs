@@ -7,6 +7,11 @@ public abstract class Tank : MonoBehaviour{
     // Health Values
     [Header("Health Values")]
     public int healthPoints;
+    public int shieldPoints;
+    private int deaths;
+
+    // Damage Values
+    [Header("Damage Values")]
     public int attackDamage;
     public int attackDistance;
     public int reloadSpeed;
@@ -24,17 +29,40 @@ public abstract class Tank : MonoBehaviour{
     private GameObject tankObject;
 
     public void getDamage(int damageAmount) {
-        healthPoints-=damageAmount;
+        healthPoints-=(damageAmount-shieldPoints);
         print(healthPoints);
-        destroyOnDead();
+        checkDead();
     } 
 
-    public void destroyOnDead() {
-        if(healthPoints<=0) {
+    #region Death
+
+        private void checkDead() {
+            if(healthPoints<=0) {
+                destroy();
+                StartCoroutine(RespawnTimeCoroutine(calculateRespawnTime()));
+                deaths++;
+            }
+        }
+
+        private int calculateRespawnTime() {
+            int defaultRespawnTime = 10;
+            return defaultRespawnTime+5*deaths;
+        }
+
+        private IEnumerator RespawnTimeCoroutine(int seconds) {
+            yield return new WaitForSeconds(seconds);
+        }
+
+        private void destroy() {
             Transform.Destroy(tankObject);
         }
-    }
 
+        private void respawn() {
+
+        }
+
+    #endregion
+    
     private void OnCollisionEnter(Collision collision) {
         if(collision.collider.tag=="projectile") {
             getDamage(collision.collider.GetComponent<Projectile>().getSenderTank().attackDamage);
