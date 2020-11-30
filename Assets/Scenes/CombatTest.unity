@@ -264,14 +264,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 500
-  shieldPoints: 0
+  shieldPoints: 100
   attackDamage: 50
   attackDistance: 100
   reloadSpeed: 4
+  armourPiercing: 0.01
   forwardAcceleration: 2
   backwardAcceleration: 1
   maxBackwardSpeed: 5
   maxForwardSpeed: 10
+  items: []
 --- !u!65 &401776528
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -873,12 +875,14 @@ MonoBehaviour:
   healthPoints: 500
   shieldPoints: 0
   attackDamage: 50
-  attackDistance: 1
+  attackDistance: 50
   reloadSpeed: 4
+  armourPiercing: 0.5
   forwardAcceleration: 2
   backwardAcceleration: 1
   maxBackwardSpeed: 5
   maxForwardSpeed: 10
+  items: []
 --- !u!114 &1269905413
 MonoBehaviour:
   m_ObjectHideFlags: 0

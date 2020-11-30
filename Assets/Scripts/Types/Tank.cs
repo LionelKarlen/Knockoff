@@ -15,6 +15,7 @@ public abstract class Tank : MonoBehaviour{
     public int attackDamage;
     public int attackDistance;
     public int reloadSpeed;
+    public float armourPiercing;
 
     // Movement Values
     [Header("Movement Values")]
@@ -26,15 +27,30 @@ public abstract class Tank : MonoBehaviour{
     // Add this back for physics based movement
     // public int movementSpeed;
 
+    public Item[] items;
+
     private GameObject tankObject;
 
-    public void getDamage(int damageAmount) {
-        healthPoints-=(damageAmount-shieldPoints);
+    public Tank() {
+        items=new Item[6];
+    }
+
+    public void getDamage(Tank attackingTank) {
+
+        if(shieldPoints<=0) {
+            healthPoints-=attackingTank.attackDamage;
+        } else {
+            shieldPoints-=Mathf.CeilToInt(attackingTank.attackDamage*(1-attackingTank.armourPiercing));
+            healthPoints-=Mathf.CeilToInt(attackingTank.attackDamage*attackingTank.armourPiercing);
+        }
+
+        // healthPoints-=(damageAmount-shieldPoints);
         print(healthPoints);
+        print(shieldPoints);
         checkDead();
     } 
 
-    #region Death
+    #region Deal with Death
 
         private void checkDead() {
             if(healthPoints<=0) {
@@ -51,6 +67,7 @@ public abstract class Tank : MonoBehaviour{
 
         private IEnumerator RespawnTimeCoroutine(int seconds) {
             yield return new WaitForSeconds(seconds);
+            respawn();
         }
 
         private void destroy() {
@@ -63,14 +80,25 @@ public abstract class Tank : MonoBehaviour{
 
     #endregion
     
-    private void OnCollisionEnter(Collision collision) {
-        if(collision.collider.tag=="projectile") {
-            getDamage(collision.collider.GetComponent<Projectile>().getSenderTank().attackDamage);
-        }
-    }
+    // Add this back for projectiles
+    // private void OnCollisionEnter(Collision collision) {
+    //     if(collision.collider.tag=="projectile") {
+    //         getDamage(collision.collider.GetComponent<Projectile>().getSenderTank());
+    //     }
+    // }
 
     public void setTankObject(GameObject gameObject) {
         tankObject=gameObject;
     }
 
+    public abstract void resetValues();
+
+    public void applyAllItems() {
+        if(items.Length>0) {
+            foreach (Item item in items) {
+                item.applyItem(this);
+            }
+        }
+        
+    }
 }

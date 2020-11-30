@@ -51,13 +51,13 @@ public class CombatController : MonoBehaviour {
                         Debug.DrawRay(firePoint.transform.position, firePoint.transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
                         print("Hit");
                         Tank enemy = hit.collider.GetComponent<Tank>();
-                        enemy.getDamage(tankInfo.attackDamage);
+                        enemy.getDamage(tankInfo);
                     } else {
                         Debug.DrawRay(firePoint.transform.position, firePoint.transform.TransformDirection(Vector3.back) * tankInfo.attackDistance, Color.red);
                         print("No Hit");
                     }
 
-                // Projectiles but this don't work
+                // Add this back for Projectiles but this don't work anyway
                 // GameObject missile = Instantiate(projectile, firePoint.transform.position, transform.rotation);
                 // // missile.GetComponent<Rigidbody>().AddRelativeForce(0,0,-10000);
                 // missile.GetComponent<Projectile>().setSenderTank(tankInfo);
