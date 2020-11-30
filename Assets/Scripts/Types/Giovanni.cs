@@ -10,10 +10,17 @@ public class Giovanni : Tank {
         attackDamage=50;
         attackDistance=50;
         reloadSpeed=4;
-        movementSpeed=100;
+
+        forwardAcceleration=2;
+        backwardAcceleration=1;
+        maxBackwardSpeed=5;
+        maxForwardSpeed=10;
+
+        // Add this back for physics based movement
+        // movementSpeed=100;
     }
 
     private void Start() {
-        tankObject=gameObject;
+        setTankObject(gameObject);
     }
 }

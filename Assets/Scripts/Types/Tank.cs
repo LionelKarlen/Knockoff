@@ -4,13 +4,24 @@ using UnityEngine;
 
 public abstract class Tank : MonoBehaviour{
     
+    // Health Values
+    [Header("Health Values")]
     public int healthPoints;
     public int attackDamage;
     public int attackDistance;
     public int reloadSpeed;
-    public int movementSpeed;
 
-    public GameObject tankObject;
+    // Movement Values
+    [Header("Movement Values")]
+    public float forwardAcceleration;
+    public float backwardAcceleration;
+    public float maxBackwardSpeed;
+    public float maxForwardSpeed;
+
+    // Add this back for physics based movement
+    // public int movementSpeed;
+
+    private GameObject tankObject;
 
     public void getDamage(int damageAmount) {
         healthPoints-=damageAmount;
@@ -24,10 +35,14 @@ public abstract class Tank : MonoBehaviour{
         }
     }
 
-    void OnCollisionEnter(Collision collision) {
+    private void OnCollisionEnter(Collision collision) {
         if(collision.collider.tag=="projectile") {
             getDamage(collision.collider.GetComponent<Projectile>().getSenderTank().attackDamage);
         }
+    }
+
+    public void setTankObject(GameObject gameObject) {
+        tankObject=gameObject;
     }
 
 }
