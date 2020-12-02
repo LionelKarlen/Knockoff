@@ -63,14 +63,13 @@ public class CombatController : MonoBehaviour {
                 // missile.GetComponent<Projectile>().setSenderTank(tankInfo);
 
             //start reload coroutine
-            // canFire=false;
-            // StartCoroutine(ReloadCoroutine());
-            //deal with hitting enemy
+            canFire=false;
+            StartCoroutine(ReloadCoroutine(tankInfo.reloadSpeed));
         }
     }
 
-    IEnumerator ReloadCoroutine() {
-        yield return new WaitForSeconds(5);
+    IEnumerator ReloadCoroutine(int seconds) {
+        yield return new WaitForSeconds(seconds);
 
         canFire=true;
     }

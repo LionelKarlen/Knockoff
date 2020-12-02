@@ -32,7 +32,7 @@ public abstract class Tank : MonoBehaviour {
     private GameObject tankObject;
 
     public Tank() {
-        items=new Item[6];
+        items=new Item[9];
     }
 
     private void Update() {
@@ -107,23 +107,8 @@ public abstract class Tank : MonoBehaviour {
     public void applyAllItems() {
         if(items.Length>0) {
             foreach (Item item in items) {
-                // print(item);
                 if(item!=null) {
                     item.applyItem(this);
-                    // print(item);
-                }
-                
-            }
-        }
-    }
-
-    public void disapplyAllItems() {
-        if(items.Length>0) {
-            foreach (Item item in items) {
-                // print(item);
-                if(item!=null) {
-                    item.disapplyItem(this);
-                    // print(item);
                 }
                 
             }
