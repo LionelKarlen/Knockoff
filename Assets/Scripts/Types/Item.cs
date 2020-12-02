@@ -17,10 +17,14 @@ public class Item : ScriptableObject {
                 tank.attackDamage+=Mathf.CeilToInt(tank.attackDamage*percentage);
                 break;
             case AffectableProperties.HEALTH:
-                tank.healthPoints+=Mathf.CeilToInt(tank.healthPoints*percentage);
+                int increaseHealth = Mathf.CeilToInt(tank.maxHealthPoints*percentage);
+                tank.maxHealthPoints+=increaseHealth;
+                tank.currentHealthPoints+=increaseHealth;
                 break;
             case AffectableProperties.SHIELD:
-                tank.shieldPoints+=Mathf.CeilToInt(tank.shieldPoints*percentage);
+                int increaseShield = Mathf.CeilToInt(tank.maxShieldPoints*percentage);
+                tank.maxShieldPoints+=increaseShield;
+                tank.currentShieldPoints+=increaseShield;
                 break;
         }
     }

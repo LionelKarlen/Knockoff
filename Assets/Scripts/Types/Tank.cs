@@ -6,8 +6,10 @@ public abstract class Tank : MonoBehaviour {
     
     // Health Values
     [Header("Health Values")]
-    public int healthPoints;
-    public int shieldPoints;
+    public int maxHealthPoints;
+    public int currentHealthPoints;
+    public int maxShieldPoints;
+    public int currentShieldPoints;
     private int deaths;
 
     // Damage Values
@@ -27,44 +29,45 @@ public abstract class Tank : MonoBehaviour {
     // Add this back for physics based movement
     // public int movementSpeed;
 
-    public Item[] items;
+    public List<Item> items;
 
     private GameObject tankObject;
 
     public Tank() {
-        items=new Item[9];
+        items=new List<Item>();
     }
 
     private void Update() {
-        pickupItem();
     }
 
-    public void pickupItem() {
-        if(Input.GetKeyDown(KeyCode.G)) {
-            resetValues();
+    public bool pickupItem(Item item) {
+        if(Input.GetKeyDown(KeyCode.G) && items.Count<=9) {
+            items.Add(item);
             applyAllItems();
+            return true;
         }
+        return false;
     }
 
     public void getDamage(Tank attackingTank) {
 
-        if(shieldPoints<=0) {
-            healthPoints-=attackingTank.attackDamage;
+        if(currentShieldPoints<=0) {
+            currentHealthPoints-=attackingTank.attackDamage;
         } else {
-            shieldPoints-=attackingTank.attackDamage;
-            healthPoints-=Mathf.CeilToInt(attackingTank.attackDamage*attackingTank.armourPiercing);
+            currentShieldPoints-=attackingTank.attackDamage;
+            currentHealthPoints-=Mathf.CeilToInt(attackingTank.attackDamage*attackingTank.armourPiercing);
         }
 
         // healthPoints-=(damageAmount-shieldPoints);
-        print(healthPoints);
-        print(shieldPoints);
+        print(currentHealthPoints);
+        print(currentShieldPoints);
         checkDead();
     } 
 
     #region Deal with Death
 
         private void checkDead() {
-            if(healthPoints<=0) {
+            if(currentHealthPoints<=0) {
                 destroy();
                 StartCoroutine(RespawnTimeCoroutine(calculateRespawnTime()));
                 deaths++;
@@ -105,13 +108,11 @@ public abstract class Tank : MonoBehaviour {
     public abstract void resetValues();
 
     public void applyAllItems() {
-        if(items.Length>0) {
-            foreach (Item item in items) {
-                if(item!=null) {
-                    item.applyItem(this);
-                }
-                
+        foreach (Item item in items) {
+            if(item!=null) {
+                item.applyItem(this);
             }
+            
         }
     }
 }

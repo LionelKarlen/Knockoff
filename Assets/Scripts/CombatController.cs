@@ -50,8 +50,11 @@ public class CombatController : MonoBehaviour {
                     if (Physics.Raycast(firePoint.transform.position, firePoint.transform.TransformDirection(Vector3.back), out hit, tankInfo.attackDistance)) {
                         Debug.DrawRay(firePoint.transform.position, firePoint.transform.TransformDirection(Vector3.back) * hit.distance, Color.yellow);
                         print("Hit");
-                        Tank enemy = hit.collider.GetComponent<Tank>();
-                        enemy.getDamage(tankInfo);
+                        if(hit.collider.tag=="player") {
+                            Tank enemy = hit.collider.GetComponent<Tank>();
+                            enemy.getDamage(tankInfo);
+                        }
+                        
                     } else {
                         Debug.DrawRay(firePoint.transform.position, firePoint.transform.TransformDirection(Vector3.back) * tankInfo.attackDistance, Color.red);
                         print("No Hit");

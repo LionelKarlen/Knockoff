@@ -16,8 +16,12 @@ public class Giovanni : Tank {
     }
 
     public override void resetValues() {
-        healthPoints=500;
-        shieldPoints=250;
+
+        maxHealthPoints=500;
+        maxShieldPoints=250;
+
+        currentHealthPoints=maxHealthPoints;
+        currentShieldPoints=maxShieldPoints;
         attackDamage=50;
         attackDistance=50;
         reloadSpeed=4;
@@ -27,6 +31,7 @@ public class Giovanni : Tank {
         backwardAcceleration=1;
         maxBackwardSpeed=5;
         maxForwardSpeed=10;
+
     }
 
     private void Start() {
