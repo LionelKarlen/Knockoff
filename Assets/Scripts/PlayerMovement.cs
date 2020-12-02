@@ -22,7 +22,8 @@ public class PlayerMovement : MonoBehaviour {
     // public float maxLeanAngle = 30;
 
     private void Start() {
-        movementSpeed=GetComponent<Tank>().movementSpeed;
+        // Add this back for physics based movement
+        // movementSpeed=GetComponent<Tank>().movementSpeed;
     }
 
     private void getInput() {
