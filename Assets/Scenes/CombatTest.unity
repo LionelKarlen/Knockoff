@@ -873,16 +873,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 500
-  shieldPoints: 0
+  shieldPoints: 250
   attackDamage: 50
   attackDistance: 50
   reloadSpeed: 4
-  armourPiercing: 0.5
+  armourPiercing: 0.01
   forwardAcceleration: 2
   backwardAcceleration: 1
   maxBackwardSpeed: 5
   maxForwardSpeed: 10
-  items: []
+  items:
+  - {fileID: 11400000, guid: 85d3ea430eb2798e193ce72d9c2361c8, type: 2}
+  - {fileID: 11400000, guid: 8e7041a0855d2d0aa9f60e587d90a82c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1269905413
 MonoBehaviour:
   m_ObjectHideFlags: 0

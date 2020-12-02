@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Tank : MonoBehaviour{
+public abstract class Tank : MonoBehaviour {
     
     // Health Values
     [Header("Health Values")]
@@ -35,12 +35,23 @@ public abstract class Tank : MonoBehaviour{
         items=new Item[6];
     }
 
+    private void Update() {
+        pickupItem();
+    }
+
+    public void pickupItem() {
+        if(Input.GetKeyDown(KeyCode.G)) {
+            resetValues();
+            applyAllItems();
+        }
+    }
+
     public void getDamage(Tank attackingTank) {
 
         if(shieldPoints<=0) {
             healthPoints-=attackingTank.attackDamage;
         } else {
-            shieldPoints-=Mathf.CeilToInt(attackingTank.attackDamage*(1-attackingTank.armourPiercing));
+            shieldPoints-=attackingTank.attackDamage;
             healthPoints-=Mathf.CeilToInt(attackingTank.attackDamage*attackingTank.armourPiercing);
         }
 
@@ -96,9 +107,26 @@ public abstract class Tank : MonoBehaviour{
     public void applyAllItems() {
         if(items.Length>0) {
             foreach (Item item in items) {
-                item.applyItem(this);
+                // print(item);
+                if(item!=null) {
+                    item.applyItem(this);
+                    // print(item);
+                }
+                
             }
         }
-        
+    }
+
+    public void disapplyAllItems() {
+        if(items.Length>0) {
+            foreach (Item item in items) {
+                // print(item);
+                if(item!=null) {
+                    item.disapplyItem(this);
+                    // print(item);
+                }
+                
+            }
+        }
     }
 }

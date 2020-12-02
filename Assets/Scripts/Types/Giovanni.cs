@@ -5,11 +5,11 @@ using UnityEngine;
 public class Giovanni : Tank {
     
 
-    public Giovanni() : base() {
+    public Giovanni() {
 
         // Setup
         resetValues();
-        // applyAllItems();
+        applyAllItems();
     
         // Add this back for physics based movement
         // movementSpeed=100;
@@ -17,6 +17,7 @@ public class Giovanni : Tank {
 
     public override void resetValues() {
         healthPoints=500;
+        shieldPoints=250;
         attackDamage=50;
         attackDistance=50;
         reloadSpeed=4;

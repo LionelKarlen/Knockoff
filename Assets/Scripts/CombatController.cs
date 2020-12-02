@@ -20,7 +20,7 @@ public class CombatController : MonoBehaviour {
         tankInfo=GetComponent<Tank>();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if(Input.GetMouseButtonDown(0)) {
             fire();
         }
